@@ -1,23 +1,35 @@
 let p, g;
 let GRAVITY=.75;
 let jump=20;
-let o_speed=7;
+let o_speed=10;
 let pause=false;
 let p_height = 0;
 let jumpCounter=0;
 let end=false;
 let score =0;
-/*function preload(){
+//image
+let bg_1;
+let bunny;
+//font
+let g_font;
 
-}*/
+function preload(){
+  //bunny = loadAnimation('assets/bunny_001.png');
+  bg_1 = loadImage('assets/sunny_bg.PNG');
+  bunny = loadImage('assets/bunny_001.PNG');
+  g_font = loadFont('assets/Robotron-0Wvvo.ttf');
+}
 function setup() {
   // put setup code here
   createCanvas(1280, 800);
   //background(0);
    p = createSprite(width/3, 400, 100, 100); //p as a player
+   p = image(bunny, width/3, 400, 100, 100);
+   
    g = createSprite(width/2, 700, width, 200); 
    o_one = createSprite(width, 550, 100, 100);
    p.visible=false;
+   //g_font = loadFont('libraries/Robotron-0Wvvo.ttf')
 }
 
 function draw() {
@@ -25,7 +37,8 @@ function draw() {
   if(pause==false){
     p.velocity.y+=GRAVITY;
     
-    background(135, 206, 235);
+    image(bg_1, 0,0,width, height);
+    //background(135, 206, 235);
     //p.collide(g);
     drawSprites();
 
@@ -71,18 +84,21 @@ function draw() {
   if(pause==true){
     console.log(end);
     if(end==true){
+      textFont(g_font);
       noStroke();
       fill(0);
       textAlign(CENTER, CENTER);
       textSize(60);
       text("GAME OVER, BUNNY DEAD", width/2, height/2-50);
     }else{
+      textFont(g_font);
       noStroke();
       fill(0);
       textAlign(CENTER, CENTER);
       textSize(60);
       text("PAUSED, BUNNY SLEEPING", width/2, height/2-50);
     }
+    textFont(g_font);
     textSize(30);
     text("Press R to RESTART", width/2, height/2);
 
@@ -94,6 +110,7 @@ function draw() {
       score=0;
     }
   }
+  textFont(g_font);
   noStroke();
   fill(0);
   textAlign(CENTER, CENTER);
