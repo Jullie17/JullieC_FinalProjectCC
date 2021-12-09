@@ -16,7 +16,7 @@ let g_font;
 function preload(){
   //bunny = loadAnimation('assets/bunny_001.png');
   bg_1 = loadImage('assets/sunny_bg.PNG');
-  bunny = loadImage('assets/bunny_001.PNG');
+  img_bunny = loadImage('assets/bunny_001.PNG');
   g_font = loadFont('assets/Robotron-0Wvvo.ttf');
 }
 function setup() {
@@ -24,8 +24,10 @@ function setup() {
   createCanvas(1280, 800);
   //background(0);
    p = createSprite(width/3, 400, 100, 100); //p as a player
-   p = image(bunny, width/3, 400, 100, 100);
-   
+   p.addImage('bunny', img_bunny);
+   //p = loadImage('assets/bunny_001.PNG', 100, 100);
+   //p = image(bunny, width/3, 400, 100, 100);
+
    g = createSprite(width/2, 700, width, 200); 
    o_one = createSprite(width, 550, 100, 100);
    p.visible=false;
