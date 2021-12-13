@@ -22,15 +22,23 @@ let obstacle_3 = [300, 100, 50];
 //obstacle
 //let obstacle;
 
+//bunny flying
+let bunny_fly;
+let bunny_running;
+let bunny_sleep;
+let bunny_dead;
+
 function preload(){
   //bunny = loadAnimation('assets/bunny_001.png');
   bg_1 = loadImage('assets/sunny_bg.PNG');
   img_bunny = loadImage('assets/bunny001.png');
   g_font = loadFont('assets/Robotron-0Wvvo.ttf');
 
+  bunny_sleep = loadAnimation('assets/bunny_sleeping_001.png', 'assets/bunny_sleeping_017.png');
+  bunny_dead = loadAnimation('assets/bunny_dead_001.png', 'assets/bunny_dead_015.png')
   //adding bunny image on the player
-  /*p = createSprite(width/3, 400, 100, 100); //p as a player
-  p.addImage(loadImage("bunny001.png"));*/
+  //p = createSprite(width/3, 400); //p as a player
+  //p.addImage(loadImage("bunny001.png"));
 }
 
 function setup() {
@@ -42,11 +50,15 @@ function setup() {
    //p.addImage('bunny', img_bunny);
    //p = loadImage('assets/bunny_001.PNG', 100, 100);
    //p = image(bunny, width/3, 400, 100, 100);
-  p = createSprite(width/3, 400, 100, 100); //p as a player
+  //p = createSprite(width/3, 400, 100, 100); //p as a player
+  p = createSprite(width/3, 400, 200, 100); //p as a player
+  p.addImage(img_bunny);
   //p.addImage(loadImage("bunny001.png"));
 
-   g = createSprite(width/2, 700, width, 200); 
-   
+  g = createSprite(width/2, 700, width, 200); 
+  
+  //for bunny sleeping
+  //sleep = createSprite(w) 
    o = new Obstacles(1,2);
    /*o_one = createSprite(width, 550, 100, 100);
    o_two = createSprite(width, 550, 50, 200);
@@ -54,8 +66,19 @@ function setup() {
   //let list_of_obstacles = [o_one, o_two, o_three];
   //let obstacle = random(list_of_obstacles);
 
-   p.visible=false;
+    // sprites to be visible
+   //p.visible=false;
+
    //g_font = loadFont('libraries/Robotron-0Wvvo.ttf')
+
+   bunny_fly = loadAnimation('assets/bunny_fly_001.png','assets/bunny_fly_004.png');
+   p.addAnimation('jump', bunny_fly);
+   //bunny_running = loadAnimation('assets/bunny_run_01.png');
+   bunny_running = loadAnimation('assets/bunny_running_001.png','assets/bunny_running_006.png');
+   p.addAnimation('run', bunny_running);
+   //bunny_sleep = loadAnimation('assets/bunny_sleeping_001.png', 'assets/bunny_sleeping_017.png');
+
+
 }
 
 function draw() {
@@ -72,6 +95,8 @@ function draw() {
     if(p.collide(g)){
       p.velocity.y=0;
       jumpCounter=0;
+      //running
+      p.changeAnimation('run');
     }
     if(p.overlap(o.sprite)){
       end=true;
@@ -82,6 +107,7 @@ function draw() {
     if(keyWentDown('SPACE')&&jumpCounter<2){
       jumpCounter+=1;
       p.velocity.y= -jump; // - as it is jumping backwards
+      p.changeAnimation('jump');
     }
     if((o.sprite.position.x<0)){
       score+=1;
@@ -114,7 +140,7 @@ function draw() {
 
       rectMode(CENTER);
       fill(0,100,255);
-      rect(p.position.x, p.position.y, 100,p_height);
+      //rect(p.position.x, p.position.y, 100,p_height);
     }
    
    
@@ -122,6 +148,17 @@ function draw() {
   if(pause==true){
     console.log(end);
     if(end==true){
+      //fade out background for pause screen
+      strokeWeight(10);
+      stroke(150, 80);
+      noFill();
+      fill(203, 195, 227, 40);
+      rect(0, 0, width, height);
+      noFill();
+
+      //bunny sleeping animation on the back
+      animation(bunny_dead, width/2, height/2);
+
       textFont(g_font);
       noStroke();
       fill(0);
@@ -129,6 +166,18 @@ function draw() {
       textSize(60);
       text("GAME OVER, BUNNY DEAD", width/2, height/2-50);
     }else{
+
+      //fade out background for pause screen
+      strokeWeight(10);
+      stroke(150, 80);
+      noFill();
+      fill(203, 195, 227, 10);
+      rect(0, 0, width, height);
+      noFill();
+
+      //bunny sleeping animation on the back
+      animation(bunny_sleep, width/2, height/2);
+
       textFont(g_font);
       noStroke();
       fill(0);
@@ -144,7 +193,7 @@ function draw() {
       //obstacle coming out again from the width
       o.reset();
       //o.sprite.position.x = width;
-      p.position.y=400;
+      p.position.y=600;
       pause=false;
       end=false;
       score=0;
