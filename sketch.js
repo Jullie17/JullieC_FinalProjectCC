@@ -1,3 +1,4 @@
+// main sketch
 let p, g;
 let GRAVITY=.75;
 let jump=20;
@@ -8,6 +9,8 @@ let jumpCounter=0;
 let end=false;
 let score =0;
 let o;
+let speed;
+
 //image
 let bg_1;
 let bunny;
@@ -82,6 +85,7 @@ function setup() {
 }
 
 function draw() {
+  o_speed = map(score, 0, 50, 10, 25);
   p.debug=true;
   if(pause==false){
     p.velocity.y+=GRAVITY;
@@ -205,11 +209,15 @@ function draw() {
   textAlign(CENTER, CENTER);
   textSize(30);
   text("How to PAUSE? -> PRESS 'A' ", width-250, 25);
-
-  //space and down
   textAlign(LEFT, CENTER);
+  if(score<5){
+    //space and down
+  
   text("How to Jump? -> PRESS 'SPACE' ", 20, height-75);
   text("How to SLIDE? -> PRESS 'DOWN(V)'", 20, height-25);
+
+  }
+  
 
   text("YOUR SCORE : "+score, 20, 50);
 
