@@ -31,6 +31,10 @@ let bunny_running;
 let bunny_sleep;
 let bunny_dead;
 
+//background music
+let bg_music;
+
+
 function preload(){
   //bunny = loadAnimation('assets/bunny_001.png');
   bg_1 = loadImage('assets/sunny_bg.PNG');
@@ -42,6 +46,8 @@ function preload(){
   //adding bunny image on the player
   //p = createSprite(width/3, 400); //p as a player
   //p.addImage(loadImage("bunny001.png"));
+
+  bg_music = loadSound('assets/bg_music.mp3');
 }
 
 function setup() {
@@ -81,10 +87,14 @@ function setup() {
    p.addAnimation('run', bunny_running);
    //bunny_sleep = loadAnimation('assets/bunny_sleeping_001.png', 'assets/bunny_sleeping_017.png');
 
+   //bg_music.play();
 
 }
 
 function draw() {
+  if(bg_music.isPlaying()==false){
+    bg_music.play();
+  }
   o_speed = map(score, 0, 50, 10, 25);
   p.debug=true;
   if(pause==false){
@@ -151,6 +161,7 @@ function draw() {
   }
   if(pause==true){
     console.log(end);
+    p.setSpeed(0.00001);
     if(end==true){
       //fade out background for pause screen
       strokeWeight(10);
