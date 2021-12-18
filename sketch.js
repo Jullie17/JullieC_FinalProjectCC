@@ -37,6 +37,7 @@ let bunny_slide;
 let bg_music;
 let jump_sound;
 let game_over;
+let sliding_sound;
 
 let bonus=0;
 
@@ -56,6 +57,7 @@ function preload(){
   bg_music = loadSound('assets/bg_music.mp3');
   jump_sound = loadSound('assets/Bunny_jump_sound_effect.m4a');
   game_over = loadSound('assets/game_over_sound_1.mp3');
+  sliding_sound = loadSound('assets/Sliding_sound_effect.m4a');
 }
 
 function setup() {
@@ -175,6 +177,9 @@ function draw() {
     
 
     if(keyDown('DOWN')){
+      if(sliding_sound.isPlaying()==false){
+        sliding_sound.play();
+      }
       p.setCollider("rectangle",0,25,100, 50);
       p_height = 50;
 
@@ -226,6 +231,8 @@ function draw() {
     if(end==true){
       if(game_over.isPlaying()==false){
         bg_music.pause();
+        sliding_sound.pause();
+        jump_sound.pause();
         game_over.play();
       }
       //fade out background for pause screen
