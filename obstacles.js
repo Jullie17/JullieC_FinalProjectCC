@@ -17,7 +17,7 @@ class Obstacles{
 		//switch this.type:
 		switch (this.type) {
 		  case 0:
-		    this.sprite.position.y = 450;
+		    this.sprite.position.y = 500;
 		    this.sprite.height = 300;
 		    this.sprite.width = 50;
 
