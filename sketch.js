@@ -30,6 +30,7 @@ let bunny_fly;
 let bunny_running;
 let bunny_sleep;
 let bunny_dead;
+let bunny_slide;
 
 //background music
 let bg_music;
@@ -43,6 +44,7 @@ function preload(){
 
   bunny_sleep = loadAnimation('assets/bunny_sleeping_001.png', 'assets/bunny_sleeping_017.png');
   bunny_dead = loadAnimation('assets/bunny_dead_001.png', 'assets/bunny_dead_015.png')
+  //bunny_slide = loadImage('assets/bunny_slide.PNG');
   //adding bunny image on the player
   //p = createSprite(width/3, 400); //p as a player
   //p.addImage(loadImage("bunny001.png"));
@@ -88,6 +90,8 @@ function setup() {
    //bunny_sleep = loadAnimation('assets/bunny_sleeping_001.png', 'assets/bunny_sleeping_017.png');
 
    //bg_music.play();
+   bunny_slide = loadAnimation('assets/bunny_slide.PNG');
+   p.addAnimation('slide', bunny_slide);
 
 }
 
@@ -145,9 +149,12 @@ function draw() {
       p.setCollider("rectangle",0,25,100, 50);
       p_height = 50;
 
-      rectMode(CENTER);
+      
+      p.changeAnimation('slide');
+      /*rectMode(CENTER);
       fill(0,100,255);
-      rect(p.position.x, p.position.y+25, 100,p_height);
+      rect(p.position.x, p.position.y+25, 100,p_height);*/
+
     }else{
       p.setCollider("rectangle",0,0,100, 100);
       p_height = 100;
